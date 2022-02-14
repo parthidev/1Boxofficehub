@@ -58,75 +58,6 @@
                                     <img class="avatar" src="https://via.placeholder.com/150x150" data-demo-src="<?php echo base_url();?>/assets/img/avatars/photos/8.jpg" alt="">
                                 </div>
                             </div>
-                           <!--  <div class="dropdown-menu" role="menu">
-                                <div class="dropdown-content">
-                                    <div class="dropdown-head">
-                                        <div class="h-avatar is-large">
-                                            <img class="avatar" src="https://via.placeholder.com/150x150" data-demo-src="<?php echo base_url();?>/assets/img/avatars/photos/8.jpg" alt="">
-                                        </div>
-                                        <div class="meta">
-                                            <span>Erik Kovalsky</span>
-                                            <span>Product Manager</span>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="dropdown-item is-media">
-                                        <div class="icon">
-                                            <i class="lnil lnil-user-alt"></i>
-                                        </div>
-                                        <div class="meta">
-                                            <span>Profile</span>
-                                            <span>View your profile</span>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item is-media layout-switcher">
-                                        <div class="icon">
-                                            <i class="lnil lnil-layout"></i>
-                                        </div>
-                                        <div class="meta">
-                                            <span>Layout</span>
-                                            <span>Switch to admin/webapp</span>
-                                        </div>
-                                    </a>
-                                    <hr class="dropdown-divider">
-                                    <a href="#" class="dropdown-item is-media">
-                                        <div class="icon">
-                                            <i class="lnil lnil-briefcase"></i>
-                                        </div>
-                                        <div class="meta">
-                                            <span>Projects</span>
-                                            <span>All my projects</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="dropdown-item is-media">
-                                        <div class="icon">
-                                            <i class="lnil lnil-users-alt"></i>
-                                        </div>
-                                        <div class="meta">
-                                            <span>Team</span>
-                                            <span>Manage your team</span>
-                                        </div>
-                                    </a>
-                                    <hr class="dropdown-divider">
-                                    <a href="#" class="dropdown-item is-media">
-                                        <div class="icon">
-                                            <i class="lnil lnil-cog"></i>
-                                        </div>
-                                        <div class="meta">
-                                            <span>Settings</span>
-                                            <span>Account settingssssssssssss</span>
-                                        </div>
-                                    </a>
-                                    <hr class="dropdown-divider">
-                                    <div class="dropdown-item is-button">
-                                        <a class="button h-button is-primary is-raised is-fullwidth logout-button" href="<?php echo base_url();?>login/logout">
-                                            <span class="icon is-small">
-                                              <i data-feather="log-out"></i>
-                                          </span>
-                                            <span>Logouts</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
 
@@ -145,21 +76,23 @@
                     <div class="dropdown project-dropdown dropdown-trigger is-spaced">
                         <div class="h-avatar is-small">
                             <span class="avatar is-fake is-h-green">
-                              <span><?php echo substr($this->session->userdata('admin_name'), 0, 1);?></span>
+                              <span><?php
+
+                               echo substr($this->session->userdata('storefront')->company_name, 0, 1);?></span>
                             </span>
                         </div>
                          <div class="dropdown-menu" role="menu">
                             <div class="dropdown-content">
                                 <?php foreach($app['branches'] as $branch){ ?>
-                                <div class="dropdown-block">
+                                <div class="dropdown-block" onclick="set_storefront('<?php echo $branch->admin_id;?>');">
                                     <div class="h-avatar is-small">
                                         <span class="avatar is-fake is-warning">
-                                          <span><?php echo substr($branch->branch_name,0,1);?></span>
+                                          <span><?php echo substr($branch->company_name,0,1);?></span>
                                         </span>
                                     </div>
                                     <div class="meta">
-                                        <span class="dark-inverted"><?php echo $branch->branch_name;?></span>
-                                        <span><?php echo $branch->branch_name;?></span>
+                                        <span class="dark-inverted"><?php echo $branch->company_name;?></span>
+                                        <span><?php echo $branch->admin_name;?> <?php echo $branch->admin_last_name;?></span>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -167,7 +100,7 @@
                         </div>
                     </div> 
                     <h1 id="" class="title is-5">
-                        <?php echo $this->session->userdata('admin_name'); ?></h1>
+                        <?php echo $this->session->userdata('storefront')->company_name; ?></h1>
                 </div>
                 <div class="center">
                     <div id="webapp-navbar-menu" class="centered-links">

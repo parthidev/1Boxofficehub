@@ -41,7 +41,7 @@
                                             <div>
                                                 <span class="item-name dark-inverted" data-filter-match><?php echo $user->admin_name;?> <?php echo $user->admin_last_name;?></span>
                                                 <span class="item-meta">
-                                                  <span data-filter-match><?php echo $user->admin_last_name;?></span>
+                                                  <span data-filter-match><?php echo $user->company_name;?></span>
                                                 </span>
                                             </div>
                                         </div>
@@ -52,7 +52,8 @@
                                             <span class="light-text"><?php echo $user->admin_cell_phone;?></span>
                                         </div>
                                         <div class="flex-table-cell is-bold" data-th="Company">
-                                            <span class="dark-text">ADMIN</span>
+                                            
+                                            <span class="tag is-rounded <?php if($user->admin_role_id == '1'){?> is-primary <?php } ?> <?php if($user->admin_role_id == '2'){?> is-orange <?php } ?> <?php if($user->admin_role_id == '3'){?> is-primary <?php } ?> <?php if($user->admin_role_id == '4'){?> is-green <?php } ?> <?php if($user->admin_role_id == '5'){?> is-secondary <?php } ?>is-elevated" data-filter-match=""><?php echo $user->admin_role_name;?></span>
                                         </div>
                                         <div class="flex-table-cell" data-th="Status">
                                             <?php if($user->admin_status == 'ACTIVE'){ ?>
@@ -68,7 +69,7 @@
                                                 </div>
                                                 <div class="dropdown-menu" role="menu">
                                                     <div class="dropdown-content">
-                                                        <a href="<?php echo base_url();?>home/users/add_user/<?php echo base64_encode(json_encode($user->admin_id));?>" class="dropdown-item is-media">
+                                                        <a href="<?php echo base_url();?>home/users/add_user/1/<?php echo base64_encode(json_encode($user->admin_id));?>" class="dropdown-item is-media">
                                                             <div class="icon">
                                                                 <i class='fa fa-edit'></i>
                                                             </div>
@@ -78,7 +79,7 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider">
-                                                        <a id="branch_<?php echo base64_encode(json_encode($user->admin_id));?>" href="javascript:void(0);" data-href="<?php echo base_url();?>home/user/delete_user/<?php echo base64_encode(json_encode($user->admin_id));?>" class="dropdown-item is-media delete_action" onClick="delete_data('<?php echo base64_encode(json_encode($user->admin_id));?>');">
+                                                        <a id="branch_<?php echo $user->admin_id;?>" href="javascript:void(0);" data-href="<?php echo base_url();?>home/users/delete_user/<?php echo $user->admin_id;?>" class="dropdown-item is-media delete_action" onClick="delete_data('<?php echo $user->admin_id;?>');">
                                                             <div class="icon">
                                                                 <i class="lnil lnil-trash-can-alt"></i>
                                                             </div>

@@ -57,7 +57,7 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider">
-                                                        <a id="branch_<?php echo base64_encode(json_encode($branch->branch_id));?>" href="javascript:void(0);" data-href="<?php echo base_url();?>home/branch/delete_branch/<?php echo base64_encode(json_encode($branch->branch_id));?>" class="dropdown-item is-media delete_action" onClick="delete_data('<?php echo base64_encode(json_encode($branch->branch_id));?>');">
+                                                        <a id="branch_<?php echo $branch->branch_id;?>" href="javascript:void(0);" data-href="<?php echo base_url();?>home/branch/delete_branch/<?php echo $branch->branch_id;?>" class="dropdown-item is-media delete_action" onClick="delete_data('<?php echo $branch->branch_id;?>');">
                                                             <div class="icon">
                                                                 <i class="lnil lnil-trash-can-alt"></i>
                                                             </div>

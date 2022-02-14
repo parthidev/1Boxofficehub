@@ -1,5 +1,19 @@
         <?php $this->load->view('common/header');?>
-
+  <style>
+      .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 6px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+  </style>
         <!-- Content Wrapper -->
         <div id="app-onboarding" class="view-wrapper is-webapp" data-page-title="Welcome" data-naver-offset="214" data-menu-item="#layouts-navbar-menu" data-mobile-item="#home-sidebar-menu-mobile">
 
@@ -31,11 +45,20 @@
                                             </div>
                                             <div class="flex-meta">
                                                 <span><?php echo $this->session->userdata('admin_name'); ?></span>
-                                                <?php if($this->session->userdata('admin_type') != 'SUB ADMIN'){?>
+                                                <?php if($this->session->userdata('role') == '5'){?>
                                                 <span>Admin</span>
                                                 <?php } ?>
-                                                <?php if($this->session->userdata('admin_type') == 'SUB ADMIN'){?>
+                                                <?php if($this->session->userdata('role') == '1'){ ?>
                                                 <span>Seller</span>
+                                                <?php } ?>
+                                                 <?php if($this->session->userdata('role') == '2'){ ?>
+                                                <span>Partners</span>
+                                                <?php } ?>
+                                                 <?php if($this->session->userdata('role') == '3'){ ?>
+                                                <span>Afiliates</span>
+                                                <?php } ?>
+                                                 <?php if($this->session->userdata('role') == '4'){ ?>
+                                                <span>Storefronts</span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -58,6 +81,13 @@
                                             <a href="<?php echo base_url();?>home/profile/manage_profile/3" class="account-menu-item <?php if($flag == '3'){ ?> is-active <?php } ?>">
                                                 <i class="lnil lnil-cog"></i>
                                                 <span>Login Access</span>
+                                                <span class="end">
+                                                  <i aria-hidden="true" class="fas fa-arrow-right"></i>
+                                              </span>
+                                            </a>
+                                              <a href="<?php echo base_url();?>home/profile/manage_profile/4" class="account-menu-item <?php if($flag == '4'){ ?> is-active <?php } ?>">
+                                                <i class="lnil lnil-bank"></i>
+                                                <span>Bank Details</span>
                                                 <span class="end">
                                                   <i aria-hidden="true" class="fas fa-arrow-right"></i>
                                               </span>
@@ -87,6 +117,10 @@
                                                      <?php if($flag == '3'){ ?>
                                                     <h3>Login Access</h3>
                                                     <p>Edit your account's Login information</p>
+                                                     <?php } ?>
+                                                      <?php if($flag == '4'){ ?>
+                                                    <h3>Bank Details</h3>
+                                                    <p>Edit your Bank's information</p>
                                                      <?php } ?>
                                                 </div>
                                                 <div class="right">
@@ -164,12 +198,13 @@
                                                         </div>
                                                     </div>
                                                     <!--Field-->
+                                                     <!--Field-->
                                                     <div class="column is-12">
                                                         <div class="field">
                                                             <div class="control has-icon">
-                                                                <input type="email" class="input" placeholder="Email" value="<?php echo $admin_profile_info->admin_email;?>" disabled>
+                                                                <input disabled type="email" class="input" placeholder="Email" value="<?php echo $admin_profile_info->admin_email;?>">
                                                                 <div class="form-icon">
-                                                                    <i data-feather="briefcase"></i>
+                                                                    <i class="lnir lnir-global"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -178,13 +213,37 @@
                                                     <div class="column is-12">
                                                         <div class="field">
                                                             <div class="control has-icon">
-                                                                <input type="text" class="input" placeholder="Mobile No." value="<?php echo $admin_profile_info->admin_cell_phone;?>" disabled>
+                                                                <input disabled type="text" class="input" placeholder="Mobile No." value="<?php echo $admin_profile_info->admin_cell_phone;?>">
                                                                 <div class="form-icon">
-                                                                    <i data-feather="map-pin"></i>
+                                                                    <i class="lnir lnir-mobile-alt-1"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+
+                                                     <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" name="company_name" class="input" placeholder="Company Name." value="<?php echo $admin_profile_info->company_name;?>">
+                                                                <div class="form-icon">
+                                                                  <i class="lnil lnil-briefcase"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" name="company_url" class="input" placeholder="Company Url." value="<?php echo $admin_profile_info->company_url;?>">
+                                                                <div class="form-icon">
+                                                                    <i class="lnil lnil-Website"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         <?php } ?>
@@ -197,84 +256,35 @@
                                                 </div>
                                                  <div class="columns is-multiline">
                                                     <!--Field-->
-                                                     <div class="column is-12">
+                                                      <div class="column is-12">
                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>Country</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           
-                                                                            <div class="option-row">
-                <input type="radio" name="country" value="<?php echo $admin_profile_info->country;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span>10+ years</span>
-                                                                                </div>
-                                                                            </div>
+                                                                <select class="form-control" id="country" name="country" onchange="get_state(this.value);" >
+                                                                    <option value="">-Select Country-</option>
+                                                                    <?php foreach($country_lists as $country_list){ ?>
+                                                                    <option value="<?php echo $country_list->id;?>" <?php if($country_list->id == $admin_profile_info->country){?> selected <?php } ?>><?php echo $country_list->name;?></option>
+                                                                    <?php } ?>
+                                                                </select>
 
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                               
                                                             </div>
                                                      </div>
                                                     </div>
                                                     <div class="column is-12">
                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>State</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           
-                                                                            <div class="option-row">
-                    <input type="radio" name="state" value="<?php echo $admin_profile_info->state;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span>10+ years</span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <select class="form-control" id="state" name="state" onchange="get_city(this.value);">
+                                                                     <option value="">-Select State-</option>
+                                                                </select>
                                                             </div>
                                                      </div>
                                                     </div>
                                                     <div class="column is-12">
                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>City</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           
-                                                                            <div class="option-row">
-            <input type="radio" name="city" value="<?php echo $admin_profile_info->city;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span>10+ years</span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <select class="form-control" id="city" name="city">
+                                                                 <option value="">-Select City-</option>
+                                                                </select>
                                                             </div>
                                                      </div>
                                                     </div>
@@ -284,19 +294,20 @@
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="Zip Code." name="zip_code" value="<?php echo $admin_profile_info->zip_code;?>">
                                                                 <div class="form-icon">
-                                                                    <i data-feather="map-pin"></i>
+                                                                    <i class="lnir lnir-postcard"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!--Field-->
-                                                    <div class="column is-12">
+
+                                                     <div class="column is-12">
                                                         <div class="field">
                                                             <div class="control">
                                                                 <textarea class="textarea" rows="4" placeholder="Address" name="address"><?php echo $admin_profile_info->address;?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
+ 
                                                 </div>
                                             </div>
                                             <?php } ?>
@@ -313,19 +324,9 @@
                                                     <div class="column is-12">
                                                         <div class="field">
                                                             <div class="control has-icon">
-                                                                <input type="text" class="input" placeholder="old Password" name="old_password">
+                                                                <input type="text" class="input" placeholder="Password" name="password">
                                                                 <div class="form-icon">
-                                                                    <i class="lnil lnil-lock-alt"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="column is-12">
-                                                        <div class="field">
-                                                            <div class="control has-icon">
-                                                                <input type="text" class="input" placeholder="New Password" name="new_password">
-                                                                <div class="form-icon">
-                                                                   <i class="lnil lnil-lock-alt"></i>
+                                                                    <i class="lnir lnir-lock-alt-1"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -335,7 +336,98 @@
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="Confirm Password" name="cpassword">
                                                                 <div class="form-icon">
-                                                                    <i class="lnil lnil-lock-alt"></i>
+                                                                   <i class="lnir lnir-key"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    
+                                                   
+                                                   
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+                                            <?php if($flag == '4'){ ?>
+                                            <div class="fieldset">
+                                                <div class="fieldset-heading">
+                                                    <h4>Bank Details</h4>
+                                                    <p>This can help to Manage your Bank account</p>
+                                                </div>
+                                                <div class="columns is-multiline">
+                                                  
+                                                    <!--Field-->
+                                                    <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="Beneficiary Full Name
+" name="beneficiary_name" value="<?php echo $admin_profile_info->beneficiary_name;?>">
+                                                                <div class="form-icon">
+                                                                   <i class="lnil lnil-user-alt-1"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="Bank Name" name="bank_name" value="<?php echo $admin_profile_info->bank_name;?>">
+                                                                <div class="form-icon">
+                                                                   <i class="lnir lnir-bank"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="IBAN Number
+" name="iban_number" value="<?php echo $admin_profile_info->iban_number;?>">
+                                                                <div class="form-icon">
+                                                                    <i class="lnir lnir-menu-circle"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="Beneficiary Address
+" name="beneficiary_address" value="<?php echo $admin_profile_info->beneficiary_address;?>">
+                                                                <div class="form-icon">
+                                                                    <i class="fas fa-address-card"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="Bank Address" name="bank_address" value="<?php echo $admin_profile_info->bank_address;?>">
+                                                                <div class="form-icon">
+                                                                   <i class="fas fa-address-book"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="Account Number
+" name="account_number" value="<?php echo $admin_profile_info->account_number;?>">
+                                                                <div class="form-icon">
+                                                                    <i class="fas fa-sort-numeric-asc"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     <div class="column is-12">
+                                                        <div class="field">
+                                                            <div class="control has-icon">
+                                                                <input type="text" class="input" placeholder="BIC / SWIFT Code
+" name="swift_code" value="<?php echo $admin_profile_info->swift_code;?>">
+                                                                <div class="form-icon">
+                                                                    <i class="fas fa-barcode"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -357,10 +449,26 @@
 
                     </div>
 
+                    <script type="text/javascript">
+                    var base_url = "<?php echo base_url();?>";
+                    var country    = "<?php echo $admin_profile_info->country;?>";
+                    var state    = "<?php echo $admin_profile_info->state;?>";
+                    var city    = "<?php echo $admin_profile_info->city;?>";
+                    </script>
+
                 <?php $this->load->view('common/footer');?>
 
-                <script type="text/javascript">
-                   
+                 <script type="text/javascript">
+        
+        $( document ).ready(function() {
+        
+<?php if($admin_profile_info->state != ''){ ?> 
+ get_state("<?php echo $admin_profile_info->country;?>");
+<?php } ?>
+<?php if($admin_profile_info->city != ''){ ?> 
+ get_city("<?php echo $admin_profile_info->state;?>");
+<?php } ?>
+});
 
       var loadFile = function(event) {
 

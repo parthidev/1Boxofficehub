@@ -32,7 +32,7 @@
                                         <span>Profile</span>
                                         <h3>Profile Settings</h3>
                                     </a>
-                                    <a class="settings-box" href="<?php echo base_url();?>home/profile/bankaccounts">
+                                    <a class="settings-box" href="<?php echo base_url();?>home/profile/manage_profile/4">
                                         <div class="edit-icon">
                                             <i class="lnil lnil-pencil"></i>
                                         </div>

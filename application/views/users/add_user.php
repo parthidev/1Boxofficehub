@@ -1,3 +1,18 @@
+  <style>
+      .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 6px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+  </style>
         <?php $this->load->view('common/header');?>
 
         <!-- Content Wrapper -->
@@ -6,7 +21,7 @@
             <div class="page-content-wrapper">
       <div class="page-content is-relative">
 
-
+                        <?php //echo "<pre>";print_r($user);?>
                      <div class="page-content-inner">
 
                         <!--Edit Profile-->
@@ -27,36 +42,49 @@
 
                                                 
                                             </div>
-                                            <div class="flex-meta">
-                                                <span>User</span>
-                                               
-                                                <span>New User</span>
+                                           <div class="flex-meta">
+                                                <span><?php echo $user->admin_name; ?></span>
+                                                <?php if($user->admin_role_id == 5){?>
+                                                <span>Admin</span>
+                                                <?php } ?>
+                                                <?php if($user->admin_role_id == 1){ ?>
+                                                <span>Seller</span>
+                                                <?php } ?>
+                                                 <?php if($user->admin_role_id == 2){ ?>
+                                                <span>Partners</span>
+                                                <?php } ?>
+                                                 <?php if($user->admin_role_id == 3){ ?>
+                                                <span>Afiliates</span>
+                                                <?php } ?>
+                                                 <?php if($user->admin_role_id == 4){ ?>
+                                                <span>Storefronts</span>
+                                                <?php } ?>
                                             </div>
                                         </div>
 
                                         <div class="account-menu">
-                                            <a href="<?php echo base_url();?>home/users/add_user/1" class="account-menu-item <?php if($flag == '1'){ ?> is-active <?php } ?>">
+                                            <a href="<?php echo base_url();?>home/users/add_user/1/<?php echo base64_encode(json_encode($user->user_id));?>" class="account-menu-item <?php if($flag == '1'){ ?> is-active <?php } ?>">
                                                 <i class="lnil lnil-user-alt"></i>
                                                 <span>General</span>
                                                 <span class="end">
                                                   <i aria-hidden="true" class="fas fa-arrow-right"></i>
                                               </span>
                                             </a>
-                                            <a href="<?php echo base_url();?>home/users/add_user/2" class="account-menu-item <?php if($flag == '2'){ ?> is-active <?php } ?>">
+                                            <a href="<?php echo base_url();?>home/users/add_user/2/<?php echo base64_encode(json_encode($user->user_id));?>" class="account-menu-item <?php if($flag == '2'){ ?> is-active <?php } ?>">
                                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                 <span>Address</span>
                                                 <span class="end">
                                                   <i aria-hidden="true" class="fas fa-arrow-right"></i>
                                               </span>
                                             </a>
-                                            <a href="<?php echo base_url();?>home/users/add_user/3" class="account-menu-item <?php if($flag == '3'){ ?> is-active <?php } ?>">
+                                            <a href="<?php echo base_url();?>home/users/add_user/3/<?php echo base64_encode(json_encode($user->user_id));?>" class="account-menu-item <?php if($flag == '3'){ ?> is-active <?php } ?>">
                                                 <i class="lnil lnil-cog"></i>
-                                                <span>Role & Login Access</span>
+                                                <span>Login Access</span>
                                                 <span class="end">
                                                   <i aria-hidden="true" class="fas fa-arrow-right"></i>
                                               </span>
                                             </a>
-                                            <a href="<?php echo base_url();?>home/users/add_user/4" class="account-menu-item <?php if($flag == '4'){ ?> is-active <?php } ?>">
+                                            <a href="<?php echo base_url();?>home/users/add_user/4/<?php echo base64_encode(json_encode($user->user_id));?>" class="account-menu-item <?php if($flag == '4'){ ?> is-active <?php } ?>">
                                                 <i class="lnil lnil-bank"></i>
                                                 <span>Bank Details</span>
                                                 <span class="end">
@@ -72,7 +100,7 @@
                                     <div class="account-box is-form is-footerless">
                             <form id="profile-form" method="post" class="validate_form_v1 login-wrapper" action="<?php echo base_url();?>home/users/save_user">
                                             <input type="hidden" name="flag" value="<?php echo $flag;?>">
-                                            <input type="hidden" name="admin_id" value="<?php echo $user->admin_id;?>">
+                                            <input type="hidden" name="admin_id" value="<?php echo $user->user_id;?>">
                                             <input type="hidden" name="address_details_id" value="<?php echo $user->address_details_id;?>">
                                             
                                         <div class="form-head stuck-header">
@@ -97,7 +125,7 @@
                                                 </div>
                                                 <div class="right">
                                                     <div class="buttons">
-                                                        <a href="<?php echo base_url();?>home/profile/edit_profile" class="button h-button is-light is-dark-outlined">
+                                                        <a href="<?php echo base_url();?>home/users/users" class="button h-button is-light is-dark-outlined">
                                                             <span class="icon">
                                                               <i class="lnir lnir-arrow-left rem-100"></i>
                                                           </span>
@@ -215,34 +243,20 @@
                                                     </div>
 
                                                     <div class="column is-12">
-                                                        <div class="field">
+                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>Role</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           <?php foreach ($roles as $role) { ?>
-                                                                            <div class="option-row">
-                <input type="radio" name="role" value="<?php echo $role->admin_role_id;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span><?php echo $role->admin_role_name;?></span>
-                                                                                </div>
-                                                                            </div>
-                                                                              <?php } ?>
+                                                                <select class="form-control" id="role" name="role" >
+                                                                    <option value="">-Select Role-</option>
+                                                                    <?php foreach ($roles as $role) { ?>
+                                                                    <option value="<?php echo $role->admin_role_id;?>" <?php if($role->admin_role_id == $user->admin_role_id){ echo "selected";}?> ><?php echo $role->admin_role_name;?></option>
+                                                                    <?php } ?>
+                                                                </select>
 
-                                                                        </div>
-                                                                    </div>
-                                                              
-                                                                </div>
+                                                               
                                                             </div>
                                                      </div>
-                                                    </div>
+
+                                                       
                                                     <!--Field-->
 
                                                 </div>
@@ -260,81 +274,32 @@
                                                      <div class="column is-12">
                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>Country</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           
-                                                                            <div class="option-row">
-                <input type="radio" name="country" value="<?php echo $user->country;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span>10+ years</span>
-                                                                                </div>
-                                                                            </div>
+                                                                <select class="form-control" id="country" name="country" onchange="get_state(this.value);" >
+                                                                    <option value="">-Select Country-</option>
+                                                                    <?php foreach($country_lists as $country_list){ ?>
+                                                                    <option value="<?php echo $country_list->id;?>" <?php if($country_list->id == $user->country){?> selected <?php } ?>><?php echo $country_list->name;?></option>
+                                                                    <?php } ?>
+                                                                </select>
 
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                               
                                                             </div>
                                                      </div>
                                                     </div>
                                                     <div class="column is-12">
                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>State</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           
-                                                                            <div class="option-row">
-                    <input type="radio" name="state" value="<?php echo $user->state;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span>10+ years</span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <select class="form-control" id="state" name="state" onchange="get_city(this.value);">
+                                                                     <option value="">-Select State-</option>
+                                                                </select>
                                                             </div>
                                                      </div>
                                                     </div>
                                                     <div class="column is-12">
                                                         <div class="field">
                                                              <div class="control">
-                                                                <div class="h-select">
-                                                                    <div class="select-box">
-                                                                        <span>City</span>
-                                                                    </div>
-                                                                    <div class="select-icon">
-                                                                        <i data-feather="chevron-down"></i>
-                                                                    </div>
-                                                                    <div class="select-drop has-slimscroll-sm">
-                                                                        <div class="drop-inner">
-                                                                           
-                                                                            <div class="option-row">
-            <input type="radio" name="city" value="<?php echo $user->city;?>">
-                                                                                <div class="option-meta">
-                                                                                    <span>10+ years</span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <select class="form-control" id="city" name="city">
+                                                                 <option value="">-Select City-</option>
+                                                                </select>
                                                             </div>
                                                      </div>
                                                     </div>
@@ -420,7 +385,7 @@
                                                         <div class="field">
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="Beneficiary Full Name
-" name="beneficiary_name">
+" name="beneficiary_name" value="<?php echo $user->beneficiary_name;?>">
                                                                 <div class="form-icon">
                                                                    <i class="lnil lnil-user-alt-1"></i>
                                                                 </div>
@@ -430,7 +395,7 @@
                                                     <div class="column is-12">
                                                         <div class="field">
                                                             <div class="control has-icon">
-                                                                <input type="text" class="input" placeholder="Bank Name" name="bank_name">
+                                                                <input type="text" class="input" placeholder="Bank Name" name="bank_name" value="<?php echo $user->bank_name;?>">
                                                                 <div class="form-icon">
                                                                    <i class="lnir lnir-bank"></i>
                                                                 </div>
@@ -441,7 +406,7 @@
                                                         <div class="field">
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="IBAN Number
-" name="iban_number">
+" name="iban_number" value="<?php echo $user->iban_number;?>">
                                                                 <div class="form-icon">
                                                                     <i class="lnir lnir-menu-circle"></i>
                                                                 </div>
@@ -452,7 +417,7 @@
                                                         <div class="field">
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="Beneficiary Address
-" name="beneficiary_address">
+" name="beneficiary_address" value="<?php echo $user->beneficiary_address;?>">
                                                                 <div class="form-icon">
                                                                     <i class="fas fa-address-card"></i>
                                                                 </div>
@@ -462,7 +427,7 @@
                                                      <div class="column is-12">
                                                         <div class="field">
                                                             <div class="control has-icon">
-                                                                <input type="text" class="input" placeholder="Bank Address" name="bank_address">
+                                                                <input type="text" class="input" placeholder="Bank Address" name="bank_address" value="<?php echo $user->bank_address;?>">
                                                                 <div class="form-icon">
                                                                    <i class="fas fa-address-book"></i>
                                                                 </div>
@@ -473,7 +438,7 @@
                                                         <div class="field">
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="Account Number
-" name="account_number">
+" name="account_number" value="<?php echo $user->account_number;?>">
                                                                 <div class="form-icon">
                                                                     <i class="fas fa-sort-numeric-asc"></i>
                                                                 </div>
@@ -484,7 +449,7 @@
                                                         <div class="field">
                                                             <div class="control has-icon">
                                                                 <input type="text" class="input" placeholder="BIC / SWIFT Code
-" name="swift_code">
+" name="swift_code" value="<?php echo $user->swift_code;?>">
                                                                 <div class="form-icon">
                                                                     <i class="fas fa-barcode"></i>
                                                                 </div>
@@ -508,10 +473,26 @@
 
                     </div>
 
+                     <script type="text/javascript">
+            var base_url = "<?php echo base_url();?>";
+            var country    = "<?php echo $user->country;?>";
+            var state    = "<?php echo $user->state;?>";
+            var city    = "<?php echo $user->city;?>";
+        </script>
+
                 <?php $this->load->view('common/footer');?>
 
                 <script type="text/javascript">
-                   
+        
+        $( document ).ready(function() {
+        
+<?php if($user->state != ''){ ?> 
+ get_state("<?php echo $user->country;?>");
+<?php } ?>
+<?php if($user->city != ''){ ?> 
+ get_city("<?php echo $user->state;?>");
+<?php } ?>
+});
 
       var loadFile = function(event) {
 

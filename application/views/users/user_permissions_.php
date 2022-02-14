@@ -11,30 +11,26 @@
                     <div class="page-content-inner">
                           <!-- Datatable -->
 
-                        <div class="form-layout">
-                            <div class="form-outer">
-                               <form id="profile-form" method="post" class="validate_form_v1 login-wrapper" action="<?php echo base_url();?>home/users/save_permission">
-                                <div class="form-header stuck-header">
-                                    <?php //echo "<pre>";print_r($active_functions);?>
+                        <div class="table-wrapper" data-simplebar>
+                            <div class="form-header stuck-header">
                                     <div class="form-header-inner">
                                         <div class="left">
-                                            <h3>Set User Permission</h3>
+                                            <h3>Request Payout</h3>
                                         </div>
                                         <div class="right">
                                             <div class="buttons">
-                                                <a href="<?php echo base_url();?>home/index" class="button h-button is-light is-dark-outlined">
+                                                <a href="#" class="button h-button is-light is-dark-outlined">
                                                     <span class="icon">
                                                       <i class="lnir lnir-arrow-left rem-100"></i>
                                                   </span>
                                                     <span>Cancel</span>
                                                 </a>
-                                                <button id="save-button" class="button h-button is-primary is-raised">Save Changes</button>
+                                                <button id="save-button" class="button h-button is-primary is-raised">Request Payout</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-body">
-                                    <table id="" class="table is-datatable is-hoverable table-is-bordered menu_list">
+                            <table id="" class="table is-datatable is-hoverable table-is-bordered menu_list">
                                 <thead>
                                     <tr>
                                         <th>Sub Menu
@@ -88,34 +84,22 @@
                                     <tr>
                                         <td><span class="has-dark-text dark-inverted is-font-alt is-weight-600 rem-90"><?php echo ucfirst($menu_title_v[$jd]->privilege_title); ?></span></td>
                                        <?php foreach($roles as $role){ ?>
-                                        <td>
-                                           <!--  <div class="control">
+                                        <td><div class="control">
                                             <label class="checkbox">
                                               <input type="checkbox" name="privilege[<?php echo $role->admin_role_id;?>][]" value="<?php echo $menu_title_v[$jd]->privilege_functions_id;?>">
                                               <span></span>
                                             </label>
-                                          </div> -->
-                                      </td>
+                                          </div></td>
                                       <?php } ?>
                                     </tr>
                                     <?php   for($k=0;$k<count($menu_module_v1);$k++)
                                             {?>
                                     <tr>
                                         <td><?php echo ucfirst($menu_module_v1[$k]->privilege_sub_module); ?></td>
-                                         <?php foreach($roles as $rkey => $role){ ?>
+                                         <?php foreach($roles as $role){ ?>
                                         <td><div class="control">
                                             <label class="checkbox">
-                                                <?php 
-                                                //echo "<pre>";print_r($role->admin_role_id);
-                                               // echo "<pre>";print_r($active_functions[$role->admin_role_id]);
-                                                $checked = '';
-                                                if(count($active_functions[$role->admin_role_id]) > 0){ 
-                                                if (in_array($menu_module_v1[$k]->privilege_functions_id, $active_functions[$role->admin_role_id])) {
-                                                $checked = 'checked="checked"';
-                                                }
-                                                }
-                                                 ?>
-                                             <input type="checkbox" name="privilege[<?php echo $role->admin_role_id;?>][]" value="<?php echo $menu_module_v1[$k]->privilege_functions_id;?>" <?php echo $checked;?>>
+                                             <input type="checkbox" name="privilege[<?php echo $role->admin_role_id;?>][]" value="<?php echo $menu_title_v[$jd]->privilege_functions_id;?>">
                                               <span></span>
                                             </label>
                                           </div></td>
@@ -123,27 +107,28 @@
                                     </tr>
                                     
                                     <?php } ?>
-                                    <!--  <tr>
+                                     <tr>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
                                         <td>&nbsp;</td>
-                                    </tr> -->
+                                    </tr>
                                 <?php } ?>
                                 <?php } ?>
                                 <?php } ?>
                                     
                                 </tbody>
                             </table>
-                                </div>
-                            </form>
-                            </div>
+
                         </div>
 
-
-                      
+                        <div id="paging-first-datatable" class="pagination datatable-pagination">
+                            <div class="datatable-info">
+                                <span></span>
+                            </div>
+                        </div>
                     </div>
 
                 <?php $this->load->view('common/footer');?>

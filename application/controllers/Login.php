@@ -6,7 +6,7 @@ class Login extends CI_Controller
     public function __construct()
     {
             /*
-     *  Developed by: Sivakumar GG
+     *  Developed by: Sivakumar G
      *  Date    : 22 January, 2022
      *  1BoxOffice Hub
      *  https://www.1boxoffice.com/
